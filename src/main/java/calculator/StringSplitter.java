@@ -28,7 +28,7 @@ public class StringSplitter {
     private static String[] splitWithCustomDelimiter(String input) {
         String[] parts = input.split("\n", 2);
         if (parts.length < 2) {
-            throw new IllegalArgumentException("입력 형식이 잘못되었습니다.)");
+            throw new IllegalArgumentException("입력 형식이 잘못되었습니다.");
         }
 
         String customDelimiter = parts[0].substring(2);
@@ -42,15 +42,11 @@ public class StringSplitter {
             throw new IllegalArgumentException("커스텀 구분자 사용 시 기본 구분자는 함께 사용할 수 없습니다.");
         }
 
-        String[] tokens = numbers.split(Pattern.quote(customDelimiter));
-        validateNoEmptyTokens(tokens);
-        return tokens;
+        return numbers.split(Pattern.quote(customDelimiter), -1);
     }
 
     private static String[] splitWithDefaultDelimiter(String input) {
-        String[] tokens = input.split(DEFAULT_DELIMITERS_REGEX);
-        validateNoEmptyTokens(tokens);
-        return tokens;
+    	return input.split(DEFAULT_DELIMITERS_REGEX, -1);
     }
 
     private static boolean isNumeric(String str) {
@@ -59,13 +55,5 @@ public class StringSplitter {
 
     private static boolean containsDefaultDelimiter(String input) {
         return input.contains(",") || input.contains(":");
-    }
-
-    private static void validateNoEmptyTokens(String[] tokens) {
-        for (String token : tokens) {
-            if (token == null || token.isEmpty()) {
-                throw new IllegalArgumentException("빈 값은 허용되지 않습니다.");
-            }
-        }
     }
 }
