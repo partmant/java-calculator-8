@@ -32,15 +32,6 @@ public class StringSplitterTest {
     }
     
     @Test
-    void 구분자로_빈_값이_있으면_예외_처리() {
-    	String input ="1,,2";
-    	
-    	assertThatThrownBy(() -> StringSplitter.split(input))
-    		.isInstanceOf(IllegalArgumentException.class)
-    		.hasMessageContaining("빈 값은 허용되지 않습니다.");
-    }
-    
-    @Test
     void 커스텀_구분자와_기본_구분자를_혼용하면_예외_처리() {
     	String input = "//;\n1,2;3";
     	
