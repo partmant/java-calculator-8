@@ -4,6 +4,9 @@ import java.util.regex.Pattern;
 
 public class StringSplitter {
     private static final String DEFAULT_DELIMITERS_REGEX = "[,:]";
+    private static final String INVALID_FORMAT_ERROR = "입력 형식이 잘못되었습니다.";
+    private static final String NUMERIC_DELIMITER_ERROR = "숫자는 구분자로 사용할 수 없습니다.";
+    private static final String CUSTOM_DEFAULT_MIXED_ERROR = "커스텀 구분자 사용 시 기본 구분자는 함께 사용할 수 없습니다.";
 
     public static String[] split(String input) {
         if (isNullOrEmpty(input)) {
@@ -27,22 +30,16 @@ public class StringSplitter {
 
     private static String[] splitWithCustomDelimiter(String input) {
         String[] parts = input.split("\n", 2);
-        if (parts.length < 2) {
-            throw new IllegalArgumentException("입력 형식이 잘못되었습니다.");
-        }
+        validateCustomDelimiterFormat(parts);
 
         String customDelimiter = parts[0].substring(2);
-        String numbers = parts[1];
+        String numberParts = parts[1];
 
-        if (isNumeric(customDelimiter)) {
-            throw new IllegalArgumentException("숫자는 구분자로 사용할 수 없습니다.");
-        }
+        validateDelimiter(customDelimiter);
+        validateNoDefaultDelimiter(numberParts);
+        
 
-        if (containsDefaultDelimiter(numbers)) {
-            throw new IllegalArgumentException("커스텀 구분자 사용 시 기본 구분자는 함께 사용할 수 없습니다.");
-        }
-
-        return numbers.split(Pattern.quote(customDelimiter), -1);
+        return numberParts.split(Pattern.quote(customDelimiter), -1);
     }
 
     private static String[] splitWithDefaultDelimiter(String input) {
@@ -54,6 +51,24 @@ public class StringSplitter {
     }
 
     private static boolean containsDefaultDelimiter(String input) {
-        return input.contains(",") || input.contains(":");
+        return Pattern.compile(DEFAULT_DELIMITERS_REGEX).matcher(input).find();
+    }
+    
+    private static void validateCustomDelimiterFormat(String[] parts) {
+    	if (parts.length < 2) {
+    		throw new IllegalArgumentException(INVALID_FORMAT_ERROR);
+    	}
+    }
+    
+    private static void validateDelimiter(String customDelimiter) {
+    	if (isNumeric(customDelimiter)) {
+    		throw new IllegalArgumentException(NUMERIC_DELIMITER_ERROR);
+    	}
+    }
+    
+    private static void validateNoDefaultDelimiter(String numbers) {
+    	if (containsDefaultDelimiter(numbers)) {
+            throw new IllegalArgumentException(CUSTOM_DEFAULT_MIXED_ERROR);
+        }
     }
 }
