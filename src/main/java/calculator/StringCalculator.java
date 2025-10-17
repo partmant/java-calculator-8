@@ -1,7 +1,15 @@
 package calculator;
 
+import calculator.io.InputView;
+import calculator.io.OutputView;
+
 public class StringCalculator {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+    	String input = InputView.readInput();
+        String[] tokens = StringSplitter.split(input);
+        int[] numbers = NumberExtractor.parse(tokens);
+        int result = SumCalculator.calculateSum(numbers);
+
+        OutputView.printResult(result);
     }
 }
