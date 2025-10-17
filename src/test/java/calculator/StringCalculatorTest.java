@@ -7,7 +7,7 @@ import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class ApplicationTest extends NsTest {
+class StringCalculatorTest extends NsTest {
     @Test
     void 커스텀_구분자_사용() {
         assertSimpleTest(() -> {
@@ -26,6 +26,6 @@ class ApplicationTest extends NsTest {
     
     @Override
     public void runMain() {
-        Application.main(new String[]{});
+        StringCalculator.main(new String[]{});
     }
 }
