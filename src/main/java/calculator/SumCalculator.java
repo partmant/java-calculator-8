@@ -2,7 +2,7 @@ package calculator;
 
 import java.util.Arrays;
 
-public class StringCalculator {
+public class SumCalculator {
     public static int add(String input) {
         if (isNullOrEmpty(input)) {
             return 0;
