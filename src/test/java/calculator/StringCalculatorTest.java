@@ -20,7 +20,7 @@ class StringCalculatorTest extends NsTest {
     @Test
     void 커스텀_구분자_입력_결과_확인() {
         assertSimpleTest(() -> {
-            run("//;\\n1;2;3");
+            run("//;\n1;2;3");
             assertThat(output()).contains("결과 : 6");
         });
     }
@@ -53,7 +53,7 @@ class StringCalculatorTest extends NsTest {
     @Test
     void 커스텀_구분자와_기본_구분자_혼용시_예외_발생() {
         assertSimpleTest(() ->
-            assertThatThrownBy(() -> runException("//;\\n1;2,3"))
+            assertThatThrownBy(() -> runException("//;\n1;2,3"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("커스텀 구분자 사용 시 기본 구분자는 함께 사용할 수 없습니다.")
         );
