@@ -32,7 +32,7 @@ public class NumberExtractor {
 	}
 	
 	private static void validateNotEmpty(String token) {
-		if (token == null | token.isEmpty()) {
+		if (token == null || token.isEmpty()) {
 			throw new IllegalArgumentException(EMPTY_VALUE_ERROR);
 		}
 	}
