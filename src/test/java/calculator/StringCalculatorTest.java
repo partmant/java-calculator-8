@@ -2,10 +2,11 @@ package calculator;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.Test;
-
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 
 class StringCalculatorTest extends NsTest {
 
@@ -32,13 +33,15 @@ class StringCalculatorTest extends NsTest {
             assertThat(output()).contains("결과 : 3");
         });
     }
-
+    
     @Test
-    void 빈_입력값은_0을_반환() {
-        assertSimpleTest(() -> {
-            run("");
-            assertThat(output()).contains("결과 : 0");
-        });
+    void 빈_입력값은_0을_반환한다() {
+        String input = "\n";
+        System.setIn(new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8)));
+
+        StringCalculator.main(new String[0]);
+
+        assertThat(output()).contains("결과 : 0");
     }
 
     @Test
