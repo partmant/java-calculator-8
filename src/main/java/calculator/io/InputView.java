@@ -17,8 +17,9 @@ public class InputView {
         }
         
         if (firstLine == null) {
-        	return "";
+            throw new IllegalArgumentException("입력이 null입니다.");
         }
+
         return firstLine;
     }
 }
