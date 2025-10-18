@@ -25,7 +25,7 @@ class StringCalculatorTest extends NsTest {
             assertThat(output()).contains("결과 : 6");
         });
     }
-    
+
     @Test
     void 숫자_하나만_입력시_그_값을_반환() {
         assertSimpleTest(() -> {
@@ -33,13 +33,13 @@ class StringCalculatorTest extends NsTest {
             assertThat(output()).contains("결과 : 3");
         });
     }
-    
+
     @Test
     void 빈_입력값은_0을_반환한다() {
         String input = "\n";
         System.setIn(new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8)));
 
-        StringCalculator.main(new String[0]);
+        Application.main(new String[0]);
 
         assertThat(output()).contains("결과 : 0");
     }
@@ -64,6 +64,6 @@ class StringCalculatorTest extends NsTest {
 
     @Override
     public void runMain() {
-        StringCalculator.main(new String[]{});
+        Application.main(new String[]{});
     }
 }
