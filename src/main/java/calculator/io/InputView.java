@@ -7,13 +7,22 @@ public class InputView {
     public static String readInput() {
         System.out.println("덧셈할 문자열을 입력해 주세요.");
 
-        String firstLine = reader.readLine();
-        String secondLine = "";
+        String input = reader.readLine();
 
-        if (firstLine.startsWith("//")) {
-            secondLine = reader.readLine();
+        if (!input.startsWith("//")) {
+            return input;
         }
 
-        return preprocessor.process(firstLine, secondLine);
+        return processCustomDelimiterInput(input);
+    }
+
+    private static String processCustomDelimiterInput(String input) {
+        if (input.contains("\n")) {
+            String[] parts = input.split("\n", 2);
+            return preprocessor.process(parts[0], parts[1]);
+        }
+
+        String secondLine = reader.readLine();
+        return preprocessor.process(input, secondLine);
     }
 }
