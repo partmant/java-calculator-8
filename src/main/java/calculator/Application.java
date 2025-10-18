@@ -1,7 +1,13 @@
 package calculator;
 
+import calculator.io.InputView;
+import calculator.io.OutputView;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        String input = InputView.readInput();
+        StringCalculator calculator = new StringCalculator();
+        int result = calculator.calculate(input);
+        OutputView.printResult(result);
     }
 }
